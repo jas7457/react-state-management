@@ -1,11 +1,15 @@
 import shallow from 'zustand/shallow';
+import { useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { loader } from 'graphql.macro';
 
 import useRenderCount from '../hooks/useRenderCount';
 import useTodos from './hooks/useTodos';
-import { gql, useQuery } from '@apollo/client';
 import { GetTodos } from '../generated/GetTodos';
-import { useEffect } from 'react';
 import { GetTodosPartial } from '../generated/GetTodosPartial';
+import { GetPeople } from '../generated/GetPeople';
+
+const GetPeopleQuery = loader('../graphql/GetPeople.gql');
 
 const GetTodosQuery = gql`
 	query GetTodos {
@@ -53,6 +57,11 @@ export default function ZustandApp() {
 			<div>
 				<h2>TodoListPartial</h2>
 				<TodoListPartial />
+			</div>
+
+			<div>
+				<h2>People</h2>
+				<People />
 			</div>
 		</div>
 	);
@@ -148,6 +157,28 @@ function TodoListPartial() {
 			<ul>
 				{data.todos.map((todo) => (
 					<li key={todo.id}>{todo.text}</li>
+				))}
+			</ul>
+		</div>
+	);
+}
+
+function People() {
+	const renderCount = useRenderCount();
+
+	const { data } = useQuery<GetPeople>(GetPeopleQuery);
+
+	if (!data) {
+		return null;
+	}
+
+	return (
+		<div>
+			<div>Render Count: {renderCount}</div>
+
+			<ul>
+				{data.people.map((person) => (
+					<li key={person.id}>{person.name}</li>
 				))}
 			</ul>
 		</div>
