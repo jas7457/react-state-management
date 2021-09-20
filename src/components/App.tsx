@@ -1,5 +1,9 @@
-import React from 'react';
+import ZustandApp from '../zustand/ZustandApp';
 
 export default function App() {
-	return <div className="bg-blue-500">Hello World</div>;
+	return (
+		<div>
+			<ZustandApp />
+		</div>
+	);
 }
