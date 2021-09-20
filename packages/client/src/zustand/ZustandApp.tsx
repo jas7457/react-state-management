@@ -5,6 +5,7 @@ import useTodos from './hooks/useTodos';
 import { gql, useQuery } from '@apollo/client';
 import { GetTodos } from '../generated/GetTodos';
 import { useEffect } from 'react';
+import { GetTodosPartial } from '../generated/GetTodosPartial';
 
 const GetTodosQuery = gql`
 	query GetTodos {
@@ -47,6 +48,11 @@ export default function ZustandApp() {
 			<div>
 				<h2>TodoList</h2>
 				<TodoList />
+			</div>
+
+			<div>
+				<h2>TodoListPartial</h2>
+				<TodoListPartial />
 			</div>
 		</div>
 	);
@@ -110,6 +116,38 @@ function TodoList() {
 						/>{' '}
 						{todo.text} <button onClick={() => removeTodo(todo.id)}>X</button>
 					</li>
+				))}
+			</ul>
+		</div>
+	);
+}
+
+const GetTodosPartialQuery = gql`
+	query GetTodosPartial {
+		todos {
+			id
+			text
+			done
+		}
+	}
+`;
+
+function TodoListPartial() {
+	const renderCount = useRenderCount();
+
+	const { data } = useQuery<GetTodosPartial>(GetTodosPartialQuery);
+
+	if (!data) {
+		return null;
+	}
+
+	return (
+		<div>
+			<div>Render Count: {renderCount}</div>
+
+			<ul>
+				{data.todos.map((todo) => (
+					<li key={todo.id}>{todo.text}</li>
 				))}
 			</ul>
 		</div>
