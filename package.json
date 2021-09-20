@@ -1,13 +1,16 @@
 {
-  "name": "react-state-management",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "client": "yarn workspace client"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  }
+	"name": "react-state-management",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"client": "yarn workspace client"
+	},
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		]
+	},
+	"devDependencies": {
+		"prettier": "^2.4.1"
+	}
 }

@@ -2,8 +2,39 @@ import shallow from 'zustand/shallow';
 
 import useRenderCount from '../hooks/useRenderCount';
 import useTodos from './hooks/useTodos';
+import { gql, useQuery } from '@apollo/client';
+import { GetTodos } from '../generated/GetTodos';
+import { useEffect } from 'react';
+
+const GetTodosQuery = gql`
+	query GetTodos {
+		todos {
+			id
+			text
+			done
+		}
+	}
+`;
 
 export default function ZustandApp() {
+	const { loading, error, data } = useQuery<GetTodos>(GetTodosQuery);
+
+	const setTodos = useTodos((state) => state.setTodos);
+
+	useEffect(() => {
+		if (data?.todos) {
+			setTodos(data.todos);
+		}
+	}, [data, setTodos]);
+
+	if (loading) {
+		return <>Loading</>;
+	}
+
+	if (error) {
+		return <>{error.message}</>;
+	}
+
 	return (
 		<div className="space-y-8">
 			<h1>Hello from Zustand App</h1>
@@ -74,7 +105,6 @@ function TodoList() {
 							type="checkbox"
 							checked={todo.done}
 							onClick={(e) => {
-								e.preventDefault();
 								toggleTodo(todo.id);
 							}}
 						/>{' '}
