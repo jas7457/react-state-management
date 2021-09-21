@@ -1,5 +1,7 @@
 import create from 'zustand';
 
+import type { Todo } from '../../types/Todo';
+
 const useTodos = create<{
 	todos: Todo[];
 	newTodo: string;
@@ -9,10 +11,10 @@ const useTodos = create<{
 	removeTodo: (id: string) => void;
 	toggleTodo: (id: string) => void;
 }>((set) => ({
-	todos: [],
+	todos: [] as Todo[],
 	newTodo: '',
 	setTodos: (todos: Todo[]) => set({ todos }),
-	setNewTodo: (newTodo: string) => set(() => ({ newTodo })),
+	setNewTodo: (newTodo: string) => set({ newTodo }),
 	addTodo: (text: string) =>
 		set((state) => ({
 			todos: [...state.todos, { id: `${new Date().getTime()}`, done: false, text }]
@@ -33,9 +35,3 @@ const useTodos = create<{
 }));
 
 export default useTodos;
-
-interface Todo {
-	id: string;
-	text: string;
-	done: boolean;
-}

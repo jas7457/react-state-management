@@ -41,25 +41,25 @@ export default function ZustandApp() {
 	}
 
 	return (
-		<div className="space-y-8">
+		<div className="space-y-2">
 			<h1>Hello from Zustand App</h1>
 
-			<div>
+			<div className="border border-black">
 				<h2>TodoForm</h2>
 				<TodoForm />
 			</div>
 
-			<div>
+			<div className="border border-black">
 				<h2>TodoList</h2>
 				<TodoList />
 			</div>
 
-			<div>
+			<div className="border border-black">
 				<h2>TodoListPartial</h2>
 				<TodoListPartial />
 			</div>
 
-			<div>
+			<div className="border border-black">
 				<h2>People</h2>
 				<People />
 			</div>
@@ -119,11 +119,12 @@ function TodoList() {
 						<input
 							type="checkbox"
 							checked={todo.done}
-							onClick={(e) => {
+							onChange={(e) => {
 								toggleTodo(todo.id);
 							}}
 						/>{' '}
-						{todo.text} <button onClick={() => removeTodo(todo.id)}>X</button>
+						<span className={todo.done ? 'line-through' : ''}>{todo.text}</span>
+						<button onClick={() => removeTodo(todo.id)}>X</button>
 					</li>
 				))}
 			</ul>
