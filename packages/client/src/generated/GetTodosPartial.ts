@@ -8,12 +8,12 @@
 // ====================================================
 
 export interface GetTodosPartial_todos {
-  __typename: "Todo";
-  id: string;
-  text: string;
-  done: boolean;
+	__typename: 'Todo';
+	id: string;
+	text: string;
+	done: boolean;
 }
 
 export interface GetTodosPartial {
-  todos: GetTodosPartial_todos[];
+	todos: GetTodosPartial_todos[];
 }

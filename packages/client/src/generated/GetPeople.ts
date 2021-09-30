@@ -8,11 +8,11 @@
 // ====================================================
 
 export interface GetPeople_people {
-  __typename: "Person";
-  id: string;
-  name: string;
+	__typename: 'Person';
+	id: string;
+	name: string;
 }
 
 export interface GetPeople {
-  people: GetPeople_people[];
+	people: GetPeople_people[];
 }
