@@ -3,9 +3,12 @@ import { useState } from 'react';
 import ZustandApp from '../zustand/ZustandApp';
 import JotaiApp from '../jotai/JotaiApp';
 import ValtioApp from '../valtio/ValtioApp';
+import MobxApp from '../mobx/MobxApp';
 
 export default function App() {
-	const [framework, setFramework] = useState<'zustand' | 'jotai' | 'valtio' | 'all'>('zustand');
+	const [framework, setFramework] = useState<'zustand' | 'jotai' | 'valtio' | 'mobx' | 'all'>(
+		'zustand'
+	);
 
 	return (
 		<div className="p-8 space-y-16">
@@ -47,12 +50,14 @@ export default function App() {
 				<option value="zustand">zustand</option>
 				<option value="jotai">jotai</option>
 				<option value="valtio">valtio</option>
+				<option value="mobx">Mobx</option>
 				<option value="all">All</option>
 			</select>
 
 			{['all', 'zustand'].includes(framework) && <ZustandApp />}
 			{['all', 'jotai'].includes(framework) && <JotaiApp />}
 			{['all', 'valtio'].includes(framework) && <ValtioApp />}
+			{['all', 'mobx'].includes(framework) && <MobxApp />}
 		</div>
 	);
 }
@@ -91,6 +96,22 @@ const stats: Array<{
 	},
 	{
 		name: 'redux',
+		weeklyDownloads: 6192927,
+		latestVersion: '4.1.1',
+		lastRelease: new Date('8/3/2021'),
+		usedBy: 1700000,
+		githubLink: 'https://github.com/reduxjs/redux'
+	},
+	{
+		name: 'mobx',
+		weeklyDownloads: 6192927,
+		latestVersion: '4.1.1',
+		lastRelease: new Date('8/3/2021'),
+		usedBy: 1700000,
+		githubLink: 'https://github.com/reduxjs/redux'
+	},
+	{
+		name: 'recoil',
 		weeklyDownloads: 6192927,
 		latestVersion: '4.1.1',
 		lastRelease: new Date('8/3/2021'),

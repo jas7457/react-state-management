@@ -10,16 +10,7 @@ import { GetTodosPartial } from '../generated/GetTodosPartial';
 import { GetPeople } from '../generated/GetPeople';
 
 const GetPeopleQuery = loader('../graphql/GetPeople.gql');
-
-const GetTodosQuery = gql`
-	query GetTodos {
-		todos {
-			id
-			text
-			done
-		}
-	}
-`;
+const GetTodosQuery = loader('../graphql/GetTodos.gql');
 
 export default function ZustandApp() {
 	const { loading, error, data } = useQuery<GetTodos>(GetTodosQuery);
@@ -54,15 +45,15 @@ export default function ZustandApp() {
 				<TodoList />
 			</div>
 
-			<div className="border border-black">
-				<h2>TodoListPartial</h2>
-				<TodoListPartial />
-			</div>
+			{/*<div className="border border-black">*/}
+			{/*	<h2>TodoListPartial</h2>*/}
+			{/*	<TodoListPartial />*/}
+			{/*</div>*/}
 
-			<div className="border border-black">
-				<h2>People</h2>
-				<People />
-			</div>
+			{/*<div className="border border-black">*/}
+			{/*	<h2>People</h2>*/}
+			{/*	<People />*/}
+			{/*</div>*/}
 		</div>
 	);
 }

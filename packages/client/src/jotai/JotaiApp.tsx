@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import useRenderCount from '../hooks/useRenderCount';
-import useTodos from './hooks/useTodos';
+import useTodos, { useRemoveTodo, useToggleTodo, useSetTodos } from './hooks/useTodos';
 
 export default function JotaiApp() {
 	return (
@@ -24,7 +24,7 @@ export default function JotaiApp() {
 function TodoForm() {
 	const renderCount = useRenderCount();
 
-	const { addTodo } = useTodos();
+	const setTodos = useSetTodos();
 	const [newTodo, setNewTodo] = useState('');
 
 	return (
@@ -34,7 +34,10 @@ function TodoForm() {
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					addTodo(newTodo);
+					setTodos((todos) => [
+						...todos,
+						{ id: `${new Date().getTime()}`, done: false, text: newTodo }
+					]);
 					setNewTodo('');
 				}}
 			>
@@ -51,7 +54,9 @@ function TodoForm() {
 function TodoList() {
 	const renderCount = useRenderCount();
 
-	const { todos, removeTodo, toggleTodo } = useTodos();
+	const [todos] = useTodos();
+	const removeTodo = useRemoveTodo();
+	const toggleTodo = useToggleTodo();
 
 	return (
 		<div>

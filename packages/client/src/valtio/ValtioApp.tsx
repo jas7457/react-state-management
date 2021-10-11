@@ -64,6 +64,7 @@ function TodoList() {
 	return (
 		<div>
 			<div>Render Count: {renderCount}</div>
+			{snapshot.person.name}
 			<ul>
 				{snapshot.todos.map((todo) => (
 					<li key={todo.id}>
