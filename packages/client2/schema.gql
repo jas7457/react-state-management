@@ -1,0 +1,67 @@
+"""
+Direct the client to resolve this field locally, either from the cache or local resolvers.
+"""
+directive @client(
+  """
+  When true, the client will never use the cache for this value. See
+  https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
+  """
+  always: Boolean
+) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
+
+"""
+Export this locally resolved field as a variable to be used in the remainder of this query. See
+https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
+"""
+directive @export(
+  """The variable name to export this field as."""
+  as: String!
+) on FIELD
+
+"""
+Specify a custom store key for this result. See
+https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
+"""
+directive @connection(
+  """Specify the store key."""
+  key: String!
+
+  """
+  An array of query argument names to include in the generated custom store key.
+  """
+  filter: [String!]
+) on FIELD
+
+"""A company that an employee works for"""
+type Company {
+  id: ID!
+  name: String!
+  description: String!
+  employees: [Employee!]!
+}
+
+type Employee {
+  id: ID!
+  name: String!
+
+  """The company this employee works for"""
+  company: Company!
+}
+
+type Query {
+  """A way to get employees. Can get all, or by company"""
+  employees(companyId: ID): [Employee!]!
+
+  """A way to get all companies"""
+  companies: [Company!]!
+
+  """A way to get a specific employee by name"""
+  employee(name: String!): Employee
+
+  """A way to get a specific company by name"""
+  company(name: String, id: ID): Company
+}
+
+type Mutation {
+  updateEmployee(id: ID!, name: String, companyId: ID): Employee!
+}

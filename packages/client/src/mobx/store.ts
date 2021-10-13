@@ -11,6 +11,7 @@ class Store {
 	}
 
 	addTodo(text: string) {
+		debugger;
 		this.todos.push({ id: `${new Date().getTime()}`, done: false, text });
 		this.newTodo = '';
 	}
@@ -36,12 +37,14 @@ class Store {
 		);
 	}
 }
+const store = new Store();
 
 const store2 = makeAutoObservable({
 	todos: [] as Todo[],
 	person: { name: 'Jason A', count: 0 },
 	newTodo: '',
 	addTodo(text: string) {
+		debugger;
 		this.todos.push({ id: `${new Date().getTime()}`, done: false, text });
 		this.newTodo = '';
 	},
@@ -68,7 +71,4 @@ const store2 = makeAutoObservable({
 	}
 });
 
-const store = new Store();
-// const store = Store2;
-
-export default store2;
+export default store;

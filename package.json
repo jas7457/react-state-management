@@ -3,7 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"client": "yarn workspace client"
+		"client": "yarn workspace client",
+		"client2": "yarn workspace client2",
+		"server": "yarn workspace server",
+		"server2": "yarn workspace server2"
 	},
 	"workspaces": {
 		"packages": [
