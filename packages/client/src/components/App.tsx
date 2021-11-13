@@ -46,7 +46,11 @@ export default function App() {
 				</tbody>
 			</table>
 
-			<select value={framework} onChange={(e) => setFramework(e.target.value as any)}>
+			<select
+				value={framework}
+				onChange={(e) => setFramework(e.target.value as any)}
+				className="border border-black"
+			>
 				<option value="zustand">zustand</option>
 				<option value="jotai">jotai</option>
 				<option value="valtio">valtio</option>

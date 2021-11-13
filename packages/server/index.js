@@ -1,9 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
+const { ApolloServer, gql } = require('apollo-server');
 
-const schema = buildSchema(`
+const typeDefs = gql`
 	type Todo {
 		id: ID!
 		text: String!
@@ -13,45 +10,35 @@ const schema = buildSchema(`
 		id: ID!
 		name: String!
 	}
-  type Query {
-    todos: [Todo!]!
-    people: [Person!]!
-  }
-`);
+	type Query {
+		todos: [Todo!]!
+		people: [Person!]!
+	}
+`;
 
-// The root provides a resolver function for each API endpoint
-const root = {
-	people: () => [
-		{ id: '1', name: 'Jason' },
-		{ id: '2', name: 'Matt' },
-	],
-	todos: () => [
-		{
-			id: '1446412739542',
-			text: 'Read emails',
-			done: false,
-		},
-		{
-			id: '1446412740883',
-			text: 'Buy orange',
-			done: true,
-		},
-	],
+const resolvers = {
+	Query: {
+		people: () => [
+			{ id: '1', name: 'Jason' },
+			{ id: '2', name: 'Matt' },
+		],
+		todos: () => [
+			{
+				id: '1446412739542',
+				text: 'Read emails',
+				done: false,
+			},
+			{
+				id: '1446412740883',
+				text: 'Buy orange',
+				done: true,
+			},
+		],
+	},
 };
 
-const app = express();
+const app = new ApolloServer({ typeDefs, resolvers });
 
-app.use(cors());
-
-app.use(
-	'/graphql',
-	graphqlHTTP({
-		schema: schema,
-		rootValue: root,
-		pretty: true,
-	})
-);
-
-app.listen(4000, (err) => {
-	console.log(`Running on port 4000`);
+app.listen(4000).then(({ url }) => {
+	console.log(`🚀  Server ready at ${url}`);
 });
